@@ -39,3 +39,23 @@ void ControladorFiguras::dibujarFiguras(Graphics^ g){
 		}
 	}
 }
+
+void ControladorFiguras::verificarColisiones() {
+	for (int i = 0; i < figuras.size(); i++) {
+		if (!figuras[i]->isVisible())
+			continue;
+		for (int j = i + 1; j < figuras.size() - i; j++) {
+			if (!figuras[j]->isVisible())
+				continue;
+			// lógica individual preciso e impreciso
+			bool CirConTri = (figuras[i]->getTipo() == "Circulo" && figuras[j]->getTipo() == "Triangulo");
+			bool TriConCir = (figuras[i]->getTipo() == "Triangulo" && figuras[j]->getTipo() == "Circulo");
+			if (CirConTri || TriConCir) {
+				if (figuras[i]->getRectangle().IntersectsWith(figuras[j]->getRectangle())) {
+					figuras[i]->setVisible(false);
+					figuras[j]->setVisible(false);
+				}
+			}
+		}
+	}
+}

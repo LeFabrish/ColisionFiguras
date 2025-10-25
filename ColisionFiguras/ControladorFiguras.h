@@ -16,5 +16,6 @@ public:
 	void agregarFigura(Figura* f);
 	void moverFiguras(int lmtx,int lmty);
 	void dibujarFiguras(Graphics^ g);
+	void verificarColisiones(); 
 };
 

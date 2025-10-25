@@ -1,7 +1,7 @@
 #include "Triangulo.h"
 
 Triangulo::Triangulo(int x, int y)
-	: Figura(x, y, "Triangulo"), lado(10), dy(5) {
+	: Figura(x, y, "Triangulo"), lado(20), dy(5) {
 }
 Triangulo::~Triangulo() {}
 // getters
@@ -21,4 +21,7 @@ void Triangulo::Mover() {
 		dy *= -1;
 	}
 
+}
+Rectangle Triangulo::getRectangle() {
+	return Rectangle(posX, posY, lado, lado);
 }

@@ -21,3 +21,6 @@ void Circulo::Mover(){
 	}
 
 }
+Rectangle Circulo::getRectangle() {
+	return Rectangle(posX, posY, diametro, diametro);
+}

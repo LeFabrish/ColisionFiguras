@@ -1,5 +1,6 @@
 #pragma once
 #include "Figura.h"
+#include "Triangulo.h"
 class Circulo :
     public Figura
 {
@@ -14,5 +15,7 @@ public:
     // funciones
     void Dibujar() override;
     void Mover() override;
+
+    Rectangle getRectangle() override;
 };
 

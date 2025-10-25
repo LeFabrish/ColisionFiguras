@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
+#include <cmath> 
 using namespace std;
+using namespace System::Drawing;
 class Figura
 {
 protected:
@@ -25,5 +27,6 @@ public:
 	// virtuales
 	virtual void Dibujar() = 0;
 	virtual void Mover() = 0;
+	virtual Rectangle getRectangle() = 0;
 };
 
