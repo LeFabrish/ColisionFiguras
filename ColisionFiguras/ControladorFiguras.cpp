@@ -39,3 +39,24 @@ void ControladorFiguras::dibujarFiguras(Graphics^ g){
 		}
 	}
 }
+void ControladorFiguras::verificarColisiones() {
+	for (int i = 0; i < figuras.size(); i++) {
+		if (!figuras[i]->isVisible()) continue;
+
+		for (int j = i + 1; j < figuras.size(); j++) {
+			if (!figuras[j]->isVisible()) continue;
+
+			// Verificar si un círculo colisiona con un triángulo
+			bool esCirculoTriangulo = (figuras[i]->getTipo() == "Circulo" && figuras[j]->getTipo() == "Triangulo");
+			bool esTrianguloCirculo = (figuras[i]->getTipo() == "Triangulo" && figuras[j]->getTipo() == "Circulo");
+
+			if (esCirculoTriangulo || esTrianguloCirculo) {
+				if (figuras[i]->colisionaCon(figuras[j])) {
+					// Hacer invisibles ambas figuras
+					figuras[i]->setVisible(false);
+					figuras[j]->setVisible(false);
+				}
+			}
+		}
+	}
+}

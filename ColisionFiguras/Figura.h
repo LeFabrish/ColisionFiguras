@@ -25,5 +25,6 @@ public:
 	// virtuales
 	virtual void Dibujar() = 0;
 	virtual void Mover() = 0;
+	virtual bool colisionaCon(Figura* otra) = 0;
 };
 

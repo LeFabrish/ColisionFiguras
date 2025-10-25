@@ -140,6 +140,7 @@ namespace ColisionFiguras {
 	}
 private: System::Void timerMovimiento_Tick(System::Object^ sender, System::EventArgs^ e) {
 		control->moverFiguras(pnlDibujo->Width, pnlDibujo->Height);
+		control->verificarColisiones();
 		pnlDibujo ->Invalidate(); // redibuja
 	}
 

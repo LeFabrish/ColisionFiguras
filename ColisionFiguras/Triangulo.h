@@ -14,5 +14,6 @@ public:
     // funciones
     void Dibujar()override;
     void Mover()override;
+    bool colisionaCon(Figura* otra) override;
 };
 
