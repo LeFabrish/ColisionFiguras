@@ -44,7 +44,7 @@ void ControladorFiguras::verificarColisiones() {
 	for (int i = 0; i < figuras.size(); i++) {
 		if (!figuras[i]->isVisible())
 			continue;
-		for (int j = i + 1; j < figuras.size() - i; j++) {
+		for (int j = i + 1; j < figuras.size(); j++) {
 			if (!figuras[j]->isVisible())
 				continue;
 			// lógica individual preciso e impreciso
