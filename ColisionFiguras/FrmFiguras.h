@@ -53,6 +53,8 @@ namespace ColisionFiguras {
 
 		ControladorFiguras* control;
 	private: System::Windows::Forms::Timer^ timer1;
+	private: System::Windows::Forms::Label^ lblVelocidad;
+
 		   Graphics^ g;
 #pragma region Windows Form Designer generated code
 		   /// <summary>
@@ -66,6 +68,7 @@ namespace ColisionFiguras {
 			   this->lblInstruccion = (gcnew System::Windows::Forms::Label());
 			   this->btnDibujar = (gcnew System::Windows::Forms::Button());
 			   this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->lblVelocidad = (gcnew System::Windows::Forms::Label());
 			   this->SuspendLayout();
 			   // 
 			   // pnlDibujo
@@ -73,7 +76,7 @@ namespace ColisionFiguras {
 			   this->pnlDibujo->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			   this->pnlDibujo->Location = System::Drawing::Point(37, 111);
 			   this->pnlDibujo->Name = L"pnlDibujo";
-			   this->pnlDibujo->Size = System::Drawing::Size(535, 412);
+			   this->pnlDibujo->Size = System::Drawing::Size(1008, 412);
 			   this->pnlDibujo->TabIndex = 0;
 			   this->pnlDibujo->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &FrmFiguras::pnlDibujo_Paint);
 			   // 
@@ -96,7 +99,7 @@ namespace ColisionFiguras {
 			   this->btnDibujar->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				   static_cast<System::Byte>(0)));
 			   this->btnDibujar->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
-			   this->btnDibujar->Location = System::Drawing::Point(578, 111);
+			   this->btnDibujar->Location = System::Drawing::Point(1119, 111);
 			   this->btnDibujar->Name = L"btnDibujar";
 			   this->btnDibujar->Size = System::Drawing::Size(38, 412);
 			   this->btnDibujar->TabIndex = 0;
@@ -110,17 +113,28 @@ namespace ColisionFiguras {
 			   this->timer1->Interval = 50;
 			   this->timer1->Tick += gcnew System::EventHandler(this, &FrmFiguras::timerMovimiento_Tick);
 			   // 
+			   // lblVelocidad
+			   // 
+			   this->lblVelocidad->AutoSize = true;
+			   this->lblVelocidad->Location = System::Drawing::Point(75, 573);
+			   this->lblVelocidad->Name = L"lblVelocidad";
+			   this->lblVelocidad->Size = System::Drawing::Size(75, 16);
+			   this->lblVelocidad->TabIndex = 2;
+			   this->lblVelocidad->Text = L"Velocidad: ";
+			   // 
 			   // FrmFiguras
 			   // 
 			   this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			   this->ClientSize = System::Drawing::Size(628, 552);
+			   this->ClientSize = System::Drawing::Size(1224, 652);
+			   this->Controls->Add(this->lblVelocidad);
 			   this->Controls->Add(this->btnDibujar);
 			   this->Controls->Add(this->lblInstruccion);
 			   this->Controls->Add(this->pnlDibujo);
-			   this->Name = L"FrmFiguras";
-			   this->Text = L"FrmFiguras"; 
 			   this->KeyPreview = true;
+			   this->Name = L"FrmFiguras";
+			   this->Text = L".";
+			   this->Load += gcnew System::EventHandler(this, &FrmFiguras::FrmFiguras_Load);
 			   this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &FrmFiguras::FrmFiguras_KeyDown);
 			   this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &FrmFiguras::FrmFiguras_KeyPress);
 			   this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &FrmFiguras::FrmFiguras_KeyUp);
@@ -138,10 +152,18 @@ namespace ColisionFiguras {
 		//Triangulo* t = new Triangulo(x,y);
 		//control->agregarFigura(t);
 	}
-private: System::Void timerMovimiento_Tick(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void timerMovimiento_Tick(System::Object^ sender, System::EventArgs^ e) {
 		control->moverFiguras(pnlDibujo->Width, pnlDibujo->Height);
 		control->verificarColisiones();
-		pnlDibujo ->Invalidate(); // redibuja
+		pnlDibujo->Invalidate(); // redibuja
+		// Mostrar velocidad
+		Figura* fig0 = control->obtenerFigura(0);
+		if (fig0 != nullptr && fig0->isVisible()) {
+			lblVelocidad->Text = "Velocidad: " + Convert::ToString(fig0->getDy());
+		}
+		else {
+			lblVelocidad->Text = "Velocidad: N/A";
+		}
 	}
 
 
@@ -160,22 +182,26 @@ private: System::Void timerMovimiento_Tick(System::Object^ sender, System::Event
 		}
 		control->dibujarFiguras(e->Graphics);
 	}
-private: System::Void FrmFiguras_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
-	// Dibujar triangulo codigo nuevo
-	switch (e->KeyCode)
-	{
-	case Keys::Space:
-		int lado = 50;
-		int x = rand() % (pnlDibujo->Width - (lado));
-		int y = rand() % (pnlDibujo->Height - (lado));
-		Triangulo* t = new Triangulo(x, y);
-		control->agregarFigura(t);
-		break;
+	private: System::Void FrmFiguras_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		// Dibujar triangulo codigo nuevo
+		switch (e->KeyCode)
+		{
+		case Keys::Space:
+			int lado = 20;
+			int x = rand() % (pnlDibujo->Width - (lado));
+			int y = rand() % (pnlDibujo->Height - (lado));
+			Triangulo* t = new Triangulo(x, y);
+			control->agregarFigura(t);
+
+			break;
+		}
+
 	}
-}
-private: System::Void FrmFiguras_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
-}
-private: System::Void FrmFiguras_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
-}
-};
+	private: System::Void FrmFiguras_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	}
+	private: System::Void FrmFiguras_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+	}
+	private: System::Void FrmFiguras_Load(System::Object^ sender, System::EventArgs^ e) {
+	}
+	};
 }

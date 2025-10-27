@@ -6,6 +6,9 @@ Figura::Figura(int x, int y, string _tipo)
 	this->r = rand() % 256;
 	this->g = rand() % 256;
 	this->b = rand() % 256;
+	this->dy = 10;
+	this->dx = 10;
+	this->gravedad = 1;
 }
 Figura::~Figura(){}
 // getter y setters
@@ -15,6 +18,8 @@ int Figura::getY() { return posY; }
 int Figura::getR() { return r; }
 int Figura::getG(){return g;}
 int Figura::getB(){return b;}
+
+int Figura::getDy() { return dy; }
 string Figura::getTipo() { return tipo; }
 
 void Figura::setVisible(bool v) { visible = v; }

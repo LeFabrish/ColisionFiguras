@@ -7,10 +7,12 @@ class Figura
 {
 protected:
 	int posX, posY,
-		r, g, b;
+		r, g, b,
+		dy, dx;
 	bool visible;
 	string tipo;
 	int limitX, limitY;
+	int gravedad;
 public:
 	Figura(int x, int y, string tipo);
 	~Figura();
@@ -20,6 +22,8 @@ public:
 	int getR();
 	int getG();
 	int getB();
+
+	int getDy();
 	string getTipo();
 	void setVisible(bool v);
 	bool isVisible();

@@ -1,4 +1,4 @@
-#include "ControladorFiguras.h"
+﻿#include "ControladorFiguras.h"
 
 ControladorFiguras::ControladorFiguras() {}
 ControladorFiguras::~ControladorFiguras(){}
@@ -47,7 +47,7 @@ void ControladorFiguras::verificarColisiones() {
 		for (int j = i + 1; j < figuras.size(); j++) {
 			if (!figuras[j]->isVisible())
 				continue;
-			// l�gica individual preciso e impreciso
+			// lógica individual preciso e impreciso
 			bool CirConTri = (figuras[i]->getTipo() == "Circulo" && figuras[j]->getTipo() == "Triangulo");
 			bool TriConCir = (figuras[i]->getTipo() == "Triangulo" && figuras[j]->getTipo() == "Circulo");
 			if (CirConTri || TriConCir) {
@@ -58,4 +58,11 @@ void ControladorFiguras::verificarColisiones() {
 			}
 		}
 	}
+}
+
+Figura* ControladorFiguras::obtenerFigura(int index) {
+	if (index >= 0 && index < figuras.size()) {  // ✅ Verifica el rango primero
+		return figuras[index];
+	}
+	return nullptr;
 }

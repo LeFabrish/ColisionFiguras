@@ -1,7 +1,7 @@
 #include "Circulo.h"
 
 Circulo::Circulo(int x, int y)
-: Figura(x,y, "Circulo"),diametro(30), dx(5) {}
+: Figura(x,y, "Circulo"),diametro(30) {}
 Circulo::~Circulo() {}
 // getters
 int Circulo::getDiametro() { return diametro; }
@@ -10,7 +10,9 @@ void Circulo::Dibujar(){
 	
 }
 void Circulo::Mover(){
+	dy += gravedad;
 	posX += dx;
+	posY += dy;
 	if (posX < 0) {
 		posX = 0;
 		dx *= -1;
@@ -18,6 +20,14 @@ void Circulo::Mover(){
 	else if (posX + diametro > limitX) {
 		posX = limitX-diametro;
 		dx *= -1;
+	}
+	if (posY < 0) {
+		posY = 0;
+		dy *= -1;
+	}
+	else if (posY + diametro > limitY) {
+		posY = limitY - diametro;
+		dy *= -1;
 	}
 
 }

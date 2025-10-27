@@ -6,7 +6,6 @@ class Triangulo :
 {
 private:
     int lado;
-    int dy;
 public:
     Triangulo(int x, int y);
     ~Triangulo();

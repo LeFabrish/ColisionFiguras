@@ -6,7 +6,6 @@ class Circulo :
 {
 private:
     int diametro;
-    int dx;
 public:
     Circulo(int x, int y);
     ~Circulo();
