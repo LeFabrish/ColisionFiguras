@@ -112,7 +112,7 @@ namespace ColisionFiguras {
 			   this->timer1->Enabled = true;
 			   this->timer1->Interval = 50;
 			   this->timer1->Tick += gcnew System::EventHandler(this, &FrmFiguras::timerMovimiento_Tick);
-			   // 
+			   ///
 			   // lblVelocidad
 			   // 
 			   this->lblVelocidad->AutoSize = true;
